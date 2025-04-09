@@ -12,10 +12,10 @@ load_dotenv()
 
 
 
-# Налаштування логування
+# login setings
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# Отримання API-ключів із змінних середовища
+# geting API-keys from openai
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 SERVICE_ACCOUNT_FILE = os.getenv("SERVICE_ACCOUNT_FILE")
 DOCUMENT_TEMPLATE_ID = os.getenv("DOCUMENT_TEMPLATE_ID")
@@ -45,7 +45,7 @@ except Exception as e:
     logging.error(f"Помилка автентифікації Google API: {e}")
     exit(1)
 
-# Генерація тексту через OpenAI API
+# Text generation via OpenAI API
 def generate_content(prompt):
     try:
         response = client.chat.completions.create(
@@ -62,7 +62,7 @@ def generate_content(prompt):
         return ""
 
 
-# Оновлення Google Docs з текстом
+# Google Docs update with text
 def update_google_doc(doc_id, content):
     try:
         requests = [{
@@ -80,7 +80,7 @@ def update_google_doc(doc_id, content):
         logging.error(f"Помилка оновлення Google Docs: {e}")
         return ""
 
-# Експорт у PDF з Google Docs
+# Export to PDF from Google Docs
 def export_pdf(doc_id):
     pdf_file = f"output_{doc_id}.pdf"
     try:
@@ -91,7 +91,7 @@ def export_pdf(doc_id):
     except Exception as e:
         print(f"❌ Помилка експорту файлу: {e}")
 
-# Головний процес
+# General proces
 def main():
     try:
         topic = "Як ефективно планувати день"
